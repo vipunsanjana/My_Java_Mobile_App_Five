@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.myappfive.models.PostBody;
+import com.example.myappfive.models.PostResponse;
 import com.example.myappfive.models.UserData;
 import com.example.myappfive.models.UserDataList;
 import com.example.myappfive.network.APIInterface;
@@ -45,6 +47,25 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
+
+            }
+        });
+
+        PostBody postBody = new PostBody("kaml","SSE");
+        Call<PostResponse> callPost = service.createUser(postBody);
+        callPost.enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                if(response.isSuccessful()){
+
+                    //code 200 || 201
+                    Log.d("TAG", "onResponse" + response);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostResponse> call, Throwable t) {
 
             }
         });
